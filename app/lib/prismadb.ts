@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client/edge'
 
-const prisma = new PrismaClient()
 // use `prisma` in your application to read and write data in your DB
 declare global {
     var prisma: PrismaClient | undefined
