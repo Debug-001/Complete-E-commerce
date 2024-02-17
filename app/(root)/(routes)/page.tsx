@@ -13,11 +13,7 @@ const SetupPage =()=> {
   }, [isOpen, onOpen])
 
 
-  return (
-    <main className="p-4">
-
-    </main>
-  );
+  return null;
 }
 
 export default SetupPage
