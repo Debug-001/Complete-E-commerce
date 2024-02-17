@@ -3,7 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ModalProvider } from "@/providers/modal-provider";
-import prismadb from "@/app/lib/prismadb";
+import { ToasterProvider } from "@/providers/toast-provider";
 
 const inter = Montserrat({ subsets: ["latin"] });
 
@@ -22,6 +22,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
+          <ToasterProvider/>
           <ModalProvider />
           {children}
         </body>
