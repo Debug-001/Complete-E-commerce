@@ -16,7 +16,6 @@ const formSchema = z.object({
 })
 
 export const StoreModal = () => {
-
     const [loading, setLoading] = useState(false)
 
     const storeModal = useStoreModal()
@@ -30,7 +29,7 @@ export const StoreModal = () => {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             setLoading(true)
-            const response = await axios.post('/api/route', values);
+            const response = await axios.post('/api/store', values);
             console.log(response.data);
 
         } catch (error) {

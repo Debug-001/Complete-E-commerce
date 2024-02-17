@@ -3,7 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ModalProvider } from "@/providers/modal-provider";
-import prismadb from "@/lib/prismadb";
+import prismadb from "@/app/lib/prismadb";
 
 const inter = Montserrat({ subsets: ["latin"] });
 
