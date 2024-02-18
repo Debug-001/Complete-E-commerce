@@ -1,5 +1,5 @@
 1:21:17
 firstly the application saw /app/layout.tsx upon running.
-since by default we didnt defined any route, the default route that was activated wasn't under AUTH, DASHBOARD, IT was (root), under layout we checked for current active user, simce there was an active user, we didnt redirect. then we went further and checked if this user has any stores created. and if it did, we redirect it to dashboard. now in dashboard, we direct it to [storeId] and under there we have layout, check userid exists
+since by default we didnt defined any route, the default route that was activated wasn't under AUTH, DASHBOARD, IT was (root), under layout we checked for current active user, simce there was an active user, we didnt redirect. then we went further and checked if this user has any stores created. and if it did, we redirect it to dashboard. now in dashboard, we direct it to [storeId] and under there we have layout, check userid exists, if yes no redirect, the attemt to load the store thatwas passed in storeId, and redirect to root folder and we use it in combination with user id to confirm this store finally exists, so we rendered navbar and children which has dashboard under it.
 
 1:57:00
