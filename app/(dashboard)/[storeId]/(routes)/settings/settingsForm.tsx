@@ -23,6 +23,7 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { Heading } from "@/components/ui/heading"
 import { AlertModal } from "@/components/modals/alert-modal"
+import { ApiAlert } from "@/components/ui/apiAlert"
 const formSchema = z.object({
   name: z.string().min(2),
 });
@@ -118,6 +119,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
         </form>
       </Form>
       <Separator />
+      <ApiAlert title="NEXT_PUBLIC_API_URL" description={`${origin}/api/${params.storeId}`} variant="public"/>
     </>
   );
 };
