@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "react-hot-toast"
 import { Trash } from "lucide-react"
-import { Store } from "@prisma/client"
+import { Billboard } from "@prisma/client"
 import { useParams, useRouter } from "next/navigation"
 import { useState } from "react"
 
@@ -25,15 +25,19 @@ import { Heading } from "@/components/ui/heading"
 import { AlertModal } from "@/components/modals/alert-modal"
 import { ApiAlert } from "@/components/ui/apiAlert"
 import { useOrigin } from "@/hooks/useOrigin"
+
+
 const formSchema = z.object({
-  name: z.string().min(2),
+  label: z.string().min(1),
+  imageUrl: z.string().min(1),
 });
 
 type BillboardFormValues = z.infer<typeof formSchema>
 
 interface BillboardFormProps {
-  initialData: Store;
+  initialData: Billboard | null;
 };
+
 
 export const BillboardForm: React.FC<BillboardFormProps> = ({
   initialData
@@ -45,9 +49,18 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const title = initialData ? "Edit Billboard" : "Create Billboard"
+  const description = initialData ? "Edit a Billboard" : "Add a Billboard"
+  const toastMessage = initialData ? "Billboard Updated" : "Created Billboard"
+  const action = initialData ? "State Changes" : "Create"
+
+
   const form = useForm<BillboardFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData
+    defaultValues: initialData || {
+      label: '',
+      imageUrl: ''
+    }
   });
 
   const onSubmit = async (data: BillboardFormValues) => {
@@ -60,7 +73,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
       toast.error('Something went wrong.');
     } finally {
       setLoading(false);
-    } 
+    }
   };
 
   const onDelete = async () => {
@@ -80,22 +93,24 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
 
   return (
     <>
-    <AlertModal 
-    isOpen={open}
-    onClose={()=>setOpen(false)}
-    onConfirm={onDelete}
-    loading={loading }
-    />
-     <div className="flex items-center justify-between">
-        <Heading title="Store settings" description="Manage store preferences" />
-        <Button
-          disabled={loading}
-          variant="destructive"
-          size="sm"
-          onClick={() => setOpen(true)}
-        >
-          <Trash className="h-4 w-4" />
-        </Button>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={onDelete}
+        loading={loading}
+      />
+      <div className="flex items-center justify-between">
+        <Heading title={title} description={description} />
+        {initialData && (
+          <Button
+            disabled={loading}
+            variant="destructive"
+            size="sm"
+            onClick={() => setOpen(true)}
+          >
+            <Trash className="h-4 w-4" />
+          </Button>
+        )}
       </div>
       <Separator />
       <Form {...form}>
@@ -103,12 +118,12 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
-              name="name"
+              name="label"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Label</FormLabel>
                   <FormControl>
-                    <Input disabled={loading} placeholder="Store name" {...field} />
+                    <Input disabled={loading} placeholder="Billboard Label" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -116,12 +131,12 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
             />
           </div>
           <Button disabled={loading} className="ml-auto" type="submit">
-            Save changes
+            {action}
           </Button>
         </form>
       </Form>
       <Separator />
-      <ApiAlert title="NEXT_PUBLIC_API_URL" description={`${origin}/api/${params.storeId}`} variant="public"/>
+      {/* <ApiAlert title="NEXT_PUBLIC_API_URL" description={`${origin}/api/${params.storeId}`} variant="public" /> */}
     </>
   );
 };
