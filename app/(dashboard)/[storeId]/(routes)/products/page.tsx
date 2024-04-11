@@ -27,7 +27,7 @@ const page = async ({ params
         id: item.id,
         name: item.name,
         isFeatured: item.isFeatured,
-        isArchieved: item.isArchived,
+        isArchived: item.isArchived,
         price: formatter.format(item.price.toNumber()),
         category: item.category.name,
         size: item.size.name,

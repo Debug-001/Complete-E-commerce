@@ -98,7 +98,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       toast.success(toastMessage);
       router.refresh();
     } catch (error: any) {
-      toast.error('Something went wrong.');
+      toast.error('Something went wrong at Product form.');
     } finally {
       setLoading(false);
     }

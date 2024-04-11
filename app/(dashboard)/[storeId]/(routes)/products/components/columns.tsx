@@ -11,7 +11,7 @@ export type ProductColumn = {
   color: string
   category: string
   isFeatured: boolean
-  isArchieved: boolean
+  isArchived: boolean
   createdAt: string
 }
 
