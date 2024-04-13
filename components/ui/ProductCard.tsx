@@ -3,8 +3,8 @@ import { Product } from '@/types'
 import Image from 'next/image'
 import IconButton from './IconButton'
 import { Expand, ShoppingCart } from 'lucide-react'
-import { useEffect, useState } from 'react'
 import Currency from './Currency'
+import { useRouter } from 'next/navigation'
 
 interface PCard {
   data: Product
@@ -14,8 +14,15 @@ interface PCard {
 const ProductCard: React.FC<PCard> = ({
   data
 }) => {
+
+  const router = useRouter()
+
+  const handleClick = () =>{
+    router.push(`/product/${data.id}`)
+  }
+
   return (
-    <div className='bg-white group cursor-pointer rounded-xl p-3 space-y-4'>
+    <div onClick={handleClick} className='bg-white group cursor-pointer rounded-xl p-3 space-y-4'>
       <div className='aspect-square rounded-xl mt-10 bg-gray-100 relative'>
         <Image className='aspect-square object-cover rounded-md' alt='Image' src={data?.images?.[0]?.url} fill />
         <div className="opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5">
